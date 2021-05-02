@@ -15,6 +15,7 @@ app.use(cors())
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const products = client.db(`${process.env.DATA_BASE}`).collection("products");
+  const orders = client.db(`${process.env.DATA_BASE}`).collection("orders");
 
   // product create
   app.post('/product/store',(req,res) => {
@@ -52,6 +53,18 @@ client.connect(err => {
       res.send(documents);
     })
   })
+
+  // order 
+  app.post('/order/store',(req,res) => {
+    const orderData = req.body;
+    orders.insertOne(orderData)
+    .then(result => {
+      console.log(result);
+      res.send(result.insertedCount > 0);
+    })
+  })
+
+  
 });
 
 app.get('/',(req,res) => {
