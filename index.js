@@ -2,7 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const MongoClient = require('mongodb').MongoClient
-const port = 4000
+const port = process.env.PORT || 4000
 require('dotenv').config()
 // mongodb database connection
 const uri = `mongodb+srv://${process.env.USER_NAME}:${process.env.DB_PASSWORD}@cluster0.vihvh.mongodb.net/${process.env.DATA_BASE}?retryWrites=true&w=majority`;
